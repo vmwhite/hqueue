@@ -25,9 +25,6 @@ h_queue <- function(N,lambda, P_1,mu_1, mu_2, sigma_1= sqrt(1/(mu_1^2)), sigma_2
   metrics <- list("S","lambda", "P_1", "mu_1", "mu_2", "sigma_1", "sigma_2")
   results <- list(N,lambda, P_1,mu_1, mu_2, sigma_1, sigma_2)
 
-  #check the system is valid
-  check_system(lambda, P_1,mu_2,N)
-
   #Solve for metrics
   ##solve for C, system capacity
   metrics <- append(metrics, "C" )
@@ -49,6 +46,12 @@ h_queue <- function(N,lambda, P_1,mu_1, mu_2, sigma_1= sqrt(1/(mu_1^2)), sigma_2
   metrics <- append(metrics, "rho_P" )
   rho_P <- calc_rho_p(lambda,E)
   results <- append(results, rho_P )
+
+  #check the system is valid
+  if (grepl( print(check_system(lambda, P_1,mu_2,N,E)), "ERROR", fixed = TRUE) == TRUE){
+    stop()
+  }
+
   ##solve for L_p, number of primary customers in the system
   theta <- calc_theta(rho_Q,N)
   sigma_Q_q_sqr <- calc_sigma_Q_q_sqr(N,sigma_2^2,mu_2,rho_Q, theta)
