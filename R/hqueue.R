@@ -48,7 +48,9 @@ h_queue <- function(N,lambda, P_1,mu_1, mu_2, sigma_1= sqrt(1/(mu_1^2)), sigma_2
   results <- append(results, rho_P )
 
   #check the system is valid
-  if (grepl( print(check_system(lambda, P_1,mu_2,N,E)), "ERROR", fixed = TRUE) == TRUE){
+  if (grepl(  "ERROR",print(check_system(lambda, P_1,mu_2,N,E)), fixed = TRUE) == TRUE){
+    opt <- options(show.error.messages = FALSE)
+    on.exit(options(opt))
     stop()
   }
 
