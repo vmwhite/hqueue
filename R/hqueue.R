@@ -73,8 +73,10 @@ h_queue <- function(N,lambda, P_1,mu_1, mu_2, sigma_1= sqrt(1/(mu_1^2)), sigma_2
 
 
   }else{
-    for (i in 1:3){
-      results <- append(results, "unstable")
+    if(length(rho_P) == 0){
+      for (i in 1:3){
+        results <- append(results, "unstable")
+      }
     }
     ##solve for L_p, number of primary customers in the system
     metrics <- append(metrics, "L_p" )
