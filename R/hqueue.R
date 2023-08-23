@@ -46,33 +46,49 @@ h_queue <- function(N,lambda, P_1,mu_1, mu_2, sigma_1= sqrt(1/(mu_1^2)), sigma_2
   metrics <- append(metrics, "rho_P" )
   rho_P <- calc_rho_p(lambda,E)
   results <- append(results, rho_P )
-
+  skip<- FALSE
   #check the system is valid
   if (grepl(  "ERROR",print(check_system(lambda, P_1,mu_2,N,E)), fixed = TRUE) == TRUE){
-    opt <- options(show.error.messages = FALSE)
-    on.exit(options(opt))
-    stop()
+    skip <- TRUE
   }
+  if (skip == FALSE){
+    ##solve for L_p, number of primary customers in the system
+    theta <- calc_theta(rho_Q,N)
+    sigma_Q_q_sqr <- calc_sigma_Q_q_sqr(N,sigma_2^2,mu_2,rho_Q, theta)
+    simga_p_sqr <- (sigma_1^2)
+    sigma_sqr <- calc_sigma_sqr(W_Q,P_1,sigma_Q_q_sqr,simga_p_sqr)
+    L_p <- calc_L_p(rho_P,lambda,sigma_sqr)
+    metrics <- append(metrics, "L_p" )
+    results <- append(results, L_p)
+    ##solve for W_p, average time in system of primary customers
+    W_p <- calc_W_p(L_p,lambda)
+    metrics <- append(metrics, "W_p" )
+    results <- append(results, W_p)
+    ##solve for D_p, average time in queue (i.e., delay) for primary customers
+    metrics <- append(metrics, "W_P_q" )
+    results <- append(results, calc_W_p_q(W_p,E))
+    ##solve for D_q, average time in queue (i.e., delay) for secondary customers
+    metrics <- append(metrics, "W_Q_q" )
+    results <- append(results, calc_W_Q_q(W_Q,mu_2))
 
-  ##solve for L_p, number of primary customers in the system
-  theta <- calc_theta(rho_Q,N)
-  sigma_Q_q_sqr <- calc_sigma_Q_q_sqr(N,sigma_2^2,mu_2,rho_Q, theta)
-  simga_p_sqr <- (sigma_1^2)
-  sigma_sqr <- calc_sigma_sqr(W_Q,P_1,sigma_Q_q_sqr,simga_p_sqr)
-  L_p <- calc_L_p(rho_P,lambda,sigma_sqr)
-  metrics <- append(metrics, "L_p" )
-  results <- append(results, L_p)
-  ##solve for W_p, average time in system of primary customers
-  W_p <- calc_W_p(L_p,lambda)
-  metrics <- append(metrics, "W_p" )
-  results <- append(results, W_p)
-  ##solve for D_p, average time in queue (i.e., delay) for primary customers
-  metrics <- append(metrics, "W_P_q" )
-  results <- append(results, calc_W_p_q(W_p,E))
-  ##solve for D_q, average time in queue (i.e., delay) for secondary customers
-  metrics <- append(metrics, "W_Q_q" )
-  results <- append(results, calc_W_Q_q(W_Q,mu_2))
 
+  }else{
+    for (i in 1:3){
+      results <- append(results, "unstable")
+    }
+    ##solve for L_p, number of primary customers in the system
+    metrics <- append(metrics, "L_p" )
+    results <- append(results, "unstable")
+    ##solve for W_p, average time in system of primary customers
+    metrics <- append(metrics, "W_p" )
+    results <- append(results, "unstable")
+    ##solve for D_p, average time in queue (i.e., delay) for primary customers
+    metrics <- append(metrics, "W_P_q" )
+    results <- append(results, "unstable")
+    ##solve for D_q, average time in queue (i.e., delay) for secondary customers
+    metrics <- append(metrics, "W_Q_q" )
+    results <- append(results, "unstable")
+  }
   #reformat results
   #create DF of results
   DF <- data.frame(results)
