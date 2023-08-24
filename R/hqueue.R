@@ -36,7 +36,7 @@ h_queue <- function(N,lambda, P_1,mu_1, mu_2, sigma_1= sqrt(1/(mu_1^2)), sigma_2
   E <- calc_E(mu_1,P_1,W_Q)
   rho_P <- calc_rho_p(lambda,E)
   skip<- FALSE
-  if (grepl(  "ERROR",print(check_system(lambda, P_1,mu_2,N,E)), fixed = TRUE) == TRUE){
+  if (grepl(  "ERROR",print(check_system(rho_Q, rho_P)), fixed = TRUE) == TRUE){
     skip <- TRUE
   }
   if (skip == FALSE){

@@ -4,16 +4,12 @@
 \alias{check_system}
 \title{Check to make sure the inputs are valid}
 \usage{
-check_system(lambda, P_1, mu_2, N)
+check_system(rho_q, rho_p)
 }
 \arguments{
-\item{lambda}{:= customer arrival rate.}
+\item{rho_q}{utilization of secondary servers}
 
-\item{P_1}{:= probability a customer requires secondary service.}
-
-\item{mu_2}{:= secondary service rate.}
-
-\item{N}{:= the number of primary servers.}
+\item{rho_p}{utilization of primary servers}
 }
 \value{
 text reporting success of test
@@ -22,9 +18,7 @@ text reporting success of test
 Check to make sure the inputs are valid
 }
 \examples{
-lambda <- 2
-P_1 <- .2
-mu_2 <- 4
-N <- 5
-check_system(lambda, P_1,mu_2,N)
+rho_q <- .4
+rho_p <- .6
+check_system(rho_q, rho_p)
 }
