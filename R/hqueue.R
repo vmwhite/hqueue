@@ -70,6 +70,8 @@ h_queue <- function(N,lambda, P_1,mu_1, mu_2, sigma_1= sqrt(1/(mu_1^2)), sigma_2
     results <- append(results, calc_W_p_q(W_p,E))
     ##solve for D_q, average time in queue (i.e., delay) for secondary customers
     results <- append(results, calc_W_Q_q(W_Q,mu_2))
+    ## solve for probabability of delay
+    results <- append(results, prob_delay(N,rho_Q))
   }else{
       for (i in 1:9){
         results <- append(results, "unstable")
@@ -88,6 +90,7 @@ h_queue <- function(N,lambda, P_1,mu_1, mu_2, sigma_1= sqrt(1/(mu_1^2)), sigma_2
   metrics <- append(metrics, "W_p" )
   metrics <- append(metrics, "W_P_q" )
   metrics <- append(metrics, "W_Q_q" )
+  metrics <- append(metrics, "prob_delay")
   colnames(DF) <- metrics
   return(DF)
   #need to add description of package
