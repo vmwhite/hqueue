@@ -73,7 +73,7 @@ h_queue <- function(N,lambda, P_1,mu_1, mu_2, sigma_1= sqrt(1/(mu_1^2)), sigma_2
     ## solve for probabability of delay
     results <- append(results, prob_delay(N,rho_Q))
   }else{
-      for (i in 1:9){
+      for (i in 1:10){
         results <- append(results, "unstable")
       }
   }
