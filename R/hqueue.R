@@ -39,7 +39,7 @@ h_queue <- function(N,lambda, P_1,mu_1, mu_2, sigma_1= sqrt(1/(mu_1^2)), sigma_2
   if (grepl(  "ERROR",print(check_system(rho_Q, rho_P)), fixed = TRUE) == TRUE){
     skip <- TRUE
   }
-  if (skip == FALSE){
+    if (skip == FALSE){
     #Solve for metrics
     ##solve for C, system capacity
     results <- append(results, calc_C(N,P_1,mu_1,mu_2))

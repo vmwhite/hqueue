@@ -6,7 +6,5 @@ library(devtools)
 * install the package from github to R.
 install_github("vmwhite/hqueue")
 
-# hqueue (development version)
-
-* Initial CRAN submission 
-* Initial Release
+# hqueue (development version)  
+* Initial Release on 9/1/23
