@@ -93,6 +93,5 @@ h_queue <- function(N,lambda, P_1,mu_1, mu_2, sigma_1= sqrt(1/(mu_1^2)), sigma_2
   metrics <- append(metrics, "prob_delay")
   colnames(DF) <- metrics
   return(DF)
-  #need to add description of package
 
 }

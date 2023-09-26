@@ -1,9 +1,9 @@
-#' under the WAIT discipline, calculating the probability a customer has to wait for service
+#' under the WAIT discipline, calculating the probability a customer has to wait for secondary service
 #'
 #' @param N := the number of primary servers
 #' @param rho_Q := the utilization of secondary servers
 #'
-#' @return $$prob_delay$$ := the probability a customer has to wait for service
+#' @return $$prob_delay$$ := the probability a customer has to wait for secondary service
 #' @export
 #'
 #' @examples
